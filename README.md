@@ -79,11 +79,10 @@ Resumindo: a antecipação de recebíveis com nota fiscal é quando uma empresa 
 **Backend - .NET Core**
 - Desenvolver uma API RESTful utilizando .NET Core.
 
-**Frontend - React**
+**Frontend - React ou React Native (um app em react-native ou web react com responsividade mobile)**
 - Criar um formulário de cadastro para empresas.
 - Criar uma interface para cadastro e listagem de NFs.
 - Criar uma tela para adicionar notas ao carrinho de antecipação e simular o cálculo.
-- Utilizar React com TypeScript.
 
 # Entregar
 - Código-fonte (GitHub/GitLab/ZIP)

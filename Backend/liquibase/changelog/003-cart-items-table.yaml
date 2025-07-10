@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-cart-items-table
+      author: hugo.damasceno
+      changes:
+        - createTable:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: company_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cart_items_companies
+                    referencedTableName: companies
+                    referencedColumnNames: id
+                    deleteCascade: true
+              - column:
+                  name: invoice_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cart_items_invoices
+                    referencedTableName: invoices
+                    referencedColumnNames: id
+                    deleteCascade: true
+        - addUniqueConstraint:
+            tableName: cart_items
+            columnNames: company_id, invoice_id
+            constraintName: uc_cart_items_company_invoice

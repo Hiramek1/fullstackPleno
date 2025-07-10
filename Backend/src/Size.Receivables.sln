@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Size.Receivables.Api", "Size.Receivables.Api\Size.Receivables.Api.csproj", "{D6265B8C-4B80-4987-964D-B89DD320FFFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Size.Receivables.Domain", "Size.Receivables.Domain\Size.Receivables.Domain.csproj", "{31F8CF8C-D64B-47F9-9289-F57DC8C85DAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Size.Receivables.CrossCutting", "Size.Receivables.CrossCutting\Size.Receivables.CrossCutting.csproj", "{F51937AD-781B-45EF-B03F-33824454E1C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Size.Receivables.IoC", "Size.Receivables.IoC\Size.Receivables.IoC.csproj", "{245F5393-1337-4DBA-B118-010FA7333E4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Size.Receivables.Data", "Size.Receivables.Data\Size.Receivables.Data.csproj", "{DD4BFD3F-F1A2-4638-B28C-11FA36226AEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Size.Receivables.Application", "Size.Receivables.Application\Size.Receivables.Application.csproj", "{D76B78A5-7E57-41BE-92A4-9B4B56550600}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6265B8C-4B80-4987-964D-B89DD320FFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6265B8C-4B80-4987-964D-B89DD320FFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6265B8C-4B80-4987-964D-B89DD320FFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6265B8C-4B80-4987-964D-B89DD320FFFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F8CF8C-D64B-47F9-9289-F57DC8C85DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F8CF8C-D64B-47F9-9289-F57DC8C85DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F8CF8C-D64B-47F9-9289-F57DC8C85DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F8CF8C-D64B-47F9-9289-F57DC8C85DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F51937AD-781B-45EF-B03F-33824454E1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F51937AD-781B-45EF-B03F-33824454E1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F51937AD-781B-45EF-B03F-33824454E1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F51937AD-781B-45EF-B03F-33824454E1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{245F5393-1337-4DBA-B118-010FA7333E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{245F5393-1337-4DBA-B118-010FA7333E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{245F5393-1337-4DBA-B118-010FA7333E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{245F5393-1337-4DBA-B118-010FA7333E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4BFD3F-F1A2-4638-B28C-11FA36226AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4BFD3F-F1A2-4638-B28C-11FA36226AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4BFD3F-F1A2-4638-B28C-11FA36226AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4BFD3F-F1A2-4638-B28C-11FA36226AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D76B78A5-7E57-41BE-92A4-9B4B56550600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76B78A5-7E57-41BE-92A4-9B4B56550600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76B78A5-7E57-41BE-92A4-9B4B56550600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76B78A5-7E57-41BE-92A4-9B4B56550600}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28E71159-C61A-41DB-A61B-42CAF6962259}
+	EndGlobalSection
+EndGlobal

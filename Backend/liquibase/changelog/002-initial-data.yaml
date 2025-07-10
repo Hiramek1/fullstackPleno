@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-initial-data
+      author: hugo.damasceno
+      changes:
+        - insert:
+            tableName: companies
+            columns:
+              - column:
+                  name: cnpj
+                  value: "12345678000101"
+              - column:
+                  name: name
+                  value: "Tech Solutions Ltda"
+              - column:
+                  name: monthly_revenue
+                  value: 150000.00
+              - column:
+                  name: business_type
+                  value: 2
+              - column:
+                  name: credit_limit
+                  value: 50000.00
+
+        - insert:
+            tableName: companies
+            columns:
+              - column:
+                  name: cnpj
+                  value: "98765432000102"
+              - column:
+                  name: name
+                  value: "Global Comercio S.A."
+              - column:
+                  name: monthly_revenue
+                  value: 85000.00
+              - column:
+                  name: business_type
+                  value: 1
+              - column:
+                  name: credit_limit
+                  value: 30000.00
+
+        - insert:
+            tableName: companies
+            columns:
+              - column:
+                  name: cnpj
+                  value: "45678912000103"
+              - column:
+                  name: name
+                  value: "Industria Moderna EIRELI"
+              - column:
+                  name: monthly_revenue
+                  value: 220000.00
+              - column:
+                  name: business_type
+                  value: 2
+              - column:
+                  name: credit_limit
+                  value: 75000.00
+
+        - insert:
+            tableName: invoices
+            columns:
+              - column:
+                  name: number
+                  value: "NF-2023-0001"
+              - column:
+                  name: amount
+                  value: 12500.50
+              - column:
+                  name: due_date
+                  value: "2023-11-15T00:00:00"
+              - column:
+                  name: company_id
+                  valueComputed: (SELECT id FROM companies WHERE cnpj = '12345678000101')
+
+        - insert:
+            tableName: invoices
+            columns:
+              - column:
+                  name: number
+                  value: "NF-2023-0002"
+              - column:
+                  name: amount
+                  value: 8300.00
+              - column:
+                  name: due_date
+                  value: "2023-11-20T00:00:00"
+              - column:
+                  name: company_id
+                  valueComputed: (SELECT id FROM companies WHERE cnpj = '98765432000102')
+
+        - insert:
+            tableName: invoices
+            columns:
+              - column:
+                  name: number
+                  value: "NF-2023-0003"
+              - column:
+                  name: amount
+                  value: 42000.75
+              - column:
+                  name: due_date
+                  value: "2023-12-05T00:00:00"
+              - column:
+                  name: company_id
+                  valueComputed: (SELECT id FROM companies WHERE cnpj = '45678912000103')
+
+        - insert:
+            tableName: invoices
+            columns:
+              - column:
+                  name: number
+                  value: "NF-2023-0004"
+              - column:
+                  name: amount
+                  value: 15000.00
+              - column:
+                  name: due_date
+                  value: "2023-12-10T00:00:00"
+              - column:
+                  name: company_id
+                  valueComputed: (SELECT id FROM companies WHERE cnpj = '12345678000101')

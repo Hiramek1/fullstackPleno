@@ -1,0 +1,86 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-initial-schema
+      author: dev
+      changes:
+        - createTable:
+            tableName: companies
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    
+              - column:
+                  name: cnpj
+                  type: VARCHAR(14)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: monthly_revenue
+                  type: DECIMAL(18,2)
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: business_type
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: credit_limit
+                  type: DECIMAL(18,2)
+                  defaultValue: 0.00
+                  constraints:
+                    nullable: false
+        
+        - createTable:
+            tableName: invoices
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    
+              - column:
+                  name: company_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_invoices_companies
+                    referencedTableName: companies
+                    referencedColumnNames: id
+                    deleteCascade: true
+                    
+              - column:
+                  name: number
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: amount
+                  type: DECIMAL(18,2)
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: due_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

@@ -68,6 +68,7 @@ O backend estará disponível em `https://localhost:5001` e o frontend em `http:
 
 - Adicionar usuários com autenticação e autorização.
 - Implementar tratamento global de exceções e logging mais avançados.
+- Validar objetos recebidos com FluentValidation.
 - Escrever testes unitários e de integração.
 - Configurar uma pipeline de CI/CD.
 - Configurar um ClientHttpWrapper.

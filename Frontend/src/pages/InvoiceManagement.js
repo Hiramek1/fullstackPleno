@@ -1,27 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import API_BASE_URL from '../api/apiConfig';
+import api from '../api/apiConfig';
 
 const InvoiceManagement = () => {
   const [invoices, setInvoices] = useState([]);
+  const [companyCnpjInput, setCompanyCnpjInput] = useState('');
+  const [companyCnpj, setCompanyCnpj] = useState('');
   const [formData, setFormData] = useState({
     number: '',
     value: '',
     dueDate: ''
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/invoices`)
-      .then(response => {
-        setInvoices(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Erro ao buscar notas fiscais:', error);
-        setLoading(false);
-      });
-  }, []);
+    if (companyCnpj) {
+      setLoading(true);
+      api.get(`/api/Cart/${companyCnpj}`)
+        .then(response => {
+          const invoices = response.data.items.map(item => ({
+            number: item.invoiceNumber,
+            amount: item.amount,
+            dueDate: item.dueDate
+          }));
+          setInvoices(invoices);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Erro ao buscar notas fiscais:', error);
+          setLoading(false);
+        });
+    }
+  }, [companyCnpj]);
+
+  const handleLoadInvoices = () => {
+    setCompanyCnpj(companyCnpjInput);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,12 +47,25 @@ const InvoiceManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_BASE_URL}/invoices`, formData);
+      await api.post(`/api/Registration/Company/${companyCnpj}/Invoice`, formData);
       alert('Nota fiscal cadastrada com sucesso!');
-      // Refresh the list
-      const response = await axios.get(`${API_BASE_URL}/invoices`);
-      setInvoices(response.data);
-      // Reset form
+
+      setLoading(true);
+      api.get(`/api/Cart/${companyCnpj}`)
+        .then(response => {
+          const invoices = response.data.items.map(item => ({
+            number: item.invoiceNumber,
+            amount: item.amount,
+            dueDate: item.dueDate
+          }));
+          setInvoices(invoices);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Erro ao buscar notas fiscais:', error);
+          setLoading(false);
+        });
+
       setFormData({ number: '', value: '', dueDate: '' });
     } catch (error) {
       alert('Erro ao cadastrar nota fiscal: ' + error.message);
@@ -50,6 +76,27 @@ const InvoiceManagement = () => {
     <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-6">Cadastro de Notas Fiscais</h1>
       
+      <div className="mb-4">
+        <label htmlFor="companyCnpj" className="block text-sm font-medium text-gray-700">CNPJ da Empresa</label>
+        <div className="mt-1 flex rounded-md shadow-sm">
+          <input
+            type="text"
+            id="companyCnpj"
+            className="focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
+            placeholder="Digite o CNPJ"
+            value={companyCnpjInput}
+            onChange={(e) => setCompanyCnpjInput(e.target.value)}
+          />
+          <button
+            type="button"
+            className="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={handleLoadInvoices}
+          >
+            Carregar Notas
+          </button>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-4 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
@@ -110,9 +157,9 @@ const InvoiceManagement = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {invoices.map((invoice) => (
-                <tr key={invoice.id}>
+                <tr key={invoice.number}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{invoice.number}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{invoice.value}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{invoice.amount}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{invoice.dueDate}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button className="text-blue-600 hover:text-blue-900">Adicionar ao Carrinho</button>

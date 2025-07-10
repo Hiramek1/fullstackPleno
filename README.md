@@ -62,7 +62,7 @@ Camadas principais:
    npm start
    ```
 
-O backend estará disponível em `http://localhost:5000` e o frontend em `http://localhost:3000`.
+O backend estará disponível em `https://localhost:5001` e o frontend em `http://localhost:3005`.
 
 ## Melhorias Futuras
 

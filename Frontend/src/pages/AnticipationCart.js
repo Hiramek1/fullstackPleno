@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import API_BASE_URL from '../api/apiConfig';
+import api from '../api/apiConfig';
 
 const AnticipationCart = () => {
   const [cart, setCart] = useState([]);
   const [company, setCompany] = useState(null);
   const [calculationResult, setCalculationResult] = useState(null);
   const [calculationError, setCalculationError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [companyCnpjInput, setCompanyCnpjInput] = useState('');
+  const [companyCnpj, setCompanyCnpj] = useState('');
 
   useEffect(() => {
-    setLoading(true);
-    axios.get(`${API_BASE_URL}/api/Cart`, { params: { companyCnpj: company?.cnpj } })
-      .then(response => {
-        setCart(response.data.items);
-        return axios.get(`${API_BASE_URL}/api/Company/${company?.cnpj}`);
-      })
-      .then(response => {
-        setCompany(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Erro ao buscar dados:', error);
-        setError('Erro ao carregar dados. Tente novamente.');
-        setLoading(false);
-      });
-  }, []);
+    if (companyCnpj) {
+      setLoading(true);
+      api.get(`/api/Cart/${companyCnpj}`)
+        .then(response => {
+          setCart(response.data.items);
+          return api.get(`/api/Registration/company/${companyCnpj}`);
+        })
+        .then(response => {
+          setCompany(response.data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Erro ao buscar dados:', error);
+          setError(error);
+          setLoading(false);
+        });
+    }
+  }, [companyCnpj]);
+
+  const handleLoadCart = () => {
+    setCompanyCnpj(companyCnpjInput);
+  };
 
   const handleRemoveFromCart = (invoiceId) => {
-    axios.delete(`${API_BASE_URL}/api/Cart/${invoiceId}`)
+    api.delete(`/api/Cart/${invoiceId}`)
       .then(() => {
         setCart(cart.filter(item => item.id !== invoiceId));
       })
@@ -40,8 +47,8 @@ const AnticipationCart = () => {
     setCalculationError(null);
     setCalculationResult(null);
     
-    axios.post(`${API_BASE_URL}/api/Advance/Calculate`, {
-      CompanyCnpj: company.cnpj,
+    api.post(`/api/Advance/Calculate`, {
+      CompanyCnpj: companyCnpj,
       InvoiceNumbers: cart.map(item => item.number)
     })
       .then(response => {
@@ -49,11 +56,9 @@ const AnticipationCart = () => {
       })
       .catch(error => {
         if (error.response) {
-          // Backend returned an error response (4xx/5xx)
           const errorMessage = error.response.data || 'Erro desconhecido no servidor';
           setCalculationError(errorMessage);
         } else {
-          // Network or other errors
           setCalculationError('Erro de conexão com o servidor');
         }
         console.error('Erro ao calcular antecipação:', error);
@@ -72,6 +77,27 @@ const AnticipationCart = () => {
     <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-6">Carrinho de Antecipação</h1>
       
+      <div className="mb-4">
+        <label htmlFor="companyCnpj" className="block text-sm font-medium text-gray-700">CNPJ da Empresa</label>
+        <div className="mt-1 flex rounded-md shadow-sm">
+          <input
+            type="text"
+            id="companyCnpj"
+            className="focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
+            placeholder="Digite o CNPJ"
+            value={companyCnpjInput}
+            onChange={(e) => setCompanyCnpjInput(e.target.value)}
+          />
+          <button
+            type="button"
+            className="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={handleLoadCart}
+          >
+            Carregar Carrinho
+          </button>
+        </div>
+      </div>
+
       {company && (
         <div className="mb-6 p-4 bg-gray-50 rounded-lg">
           <h2 className="text-lg font-semibold">Empresa: {company.name}</h2>

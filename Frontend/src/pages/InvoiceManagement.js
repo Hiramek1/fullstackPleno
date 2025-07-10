@@ -72,6 +72,16 @@ const InvoiceManagement = () => {
     }
   };
 
+  const handleAddToCart = (invoiceNumber) => {
+    api.post(`/api/Cart/${companyCnpj}/items`, { invoiceNumber })
+      .then(() => {
+        alert('Nota fiscal adicionada ao carrinho!');
+      })
+      .catch(error => {
+        console.error('Erro ao adicionar ao carrinho:', error);
+      });
+  };
+
   return (
     <div className="max-w-4xl mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-6">Cadastro de Notas Fiscais</h1>
@@ -162,7 +172,12 @@ const InvoiceManagement = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{invoice.amount}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{invoice.dueDate}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button className="text-blue-600 hover:text-blue-900">Adicionar ao Carrinho</button>
+                    <button 
+                      className="text-blue-600 hover:text-blue-900"
+                      onClick={() => handleAddToCart(invoice.number)}
+                    >
+                      Adicionar ao Carrinho
+                    </button>
                   </td>
                 </tr>
               ))}

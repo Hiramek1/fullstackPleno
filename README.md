@@ -70,5 +70,5 @@ O backend estará disponível em `http://localhost:5000` e o frontend em `http:/
 - Implementar tratamento global de exceções e logging mais avançados.
 - Escrever testes unitários e de integração.
 - Configurar uma pipeline de CI/CD.
-- Implementar um cálculo de limite de crédito mais sofisticado.
+- Configurar um ClientHttpWrapper.
 ---
